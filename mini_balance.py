@@ -1,30 +1,58 @@
 class Balance:
 
-    def __init__(self, balance=0):
-        self.information = {}
-        self.balance = balance
+    def __init__(self):
+        self.information = {
+            #by default
+            "davronbek": {
+                "password": "12345",
+                "balance": [100]
+            }
+        }
+
+    def register(self):
+        make_user = input("Create username: ")
+        make_pass = input("Create password: ")
+
+        if make_user not in self.information:
+            self.information[make_user] = {
+                "password": make_pass,
+                "balance": []
+            }
+            print("Registration successful!")
+        else:
+            print("Username already exists!")
 
     def obtaining(self):
-        get_info = input("enter username:")
-        get_passkey = input("enter password:")
-        get_money = input("enter money $")
-        self.information = {get_info: get_passkey}
-        self.balance = get_money
+        while True:
+            get_info = input("Enter username: ")
+            get_passkey = input("Enter password: ")
 
-    def login(self):
-        get_info = input("enter username:")
-        get_passkey = input("enter password:")
-        if get_info in self.information.keys() and self.information[get_info] == get_passkey:
-            print("login success")
-            print(self.show())
-        else:
-            print("login failed try again")
+            if get_info in self.information and get_passkey == self.information[get_info]["password"]:
+                print(f"Login successful! Current balance: {sum(self.information[get_info]['balance'])}")
 
-    def show(self):
-        return f"your balance have {self.balance}$"
+                get_money = input("Enter money to deposit: ")
+                if get_money.isdigit():
+                    get_money = int(get_money)
+                    self.information[get_info]["balance"].append(get_money)
+                    print(f"You deposited {get_money}$")
+                else:
+                    print("Invalid amount!")
+                    break
+
+            else:
+                print("Incorrect username or password.")
+                ask = input("Do you want to register yes/no: ").lower()
+
+                if ask == "yes":
+                    self.register()
+                else:
+                    continue
+
+    def show(self, username):
+        return f"Your balance: {self.information[username]['balance']}"
 
 
 if __name__ == "__main__":
-    all = Balance()
-    all.obtaining()
-    all.login()
+    app = Balance()
+    app.obtaining()
+
