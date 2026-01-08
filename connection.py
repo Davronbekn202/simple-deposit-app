@@ -3,7 +3,7 @@ import psycopg2
 
 def get_connection():
     return psycopg2.connect(
-        dbname="Deposit",
+        dbname="deposit",
         user='postgres',
         password="A0B1D9E2",
         host='localhost',

@@ -1,4 +1,5 @@
-from datetime import datetime
+import random
+from sql import *
 class Balance:
 
     def __init__(self):
@@ -11,17 +12,10 @@ class Balance:
         }
 
     def register(self):
-        make_user = input("Create username: ")
+        email = input("Create email: ")
         make_pass = input("Create password: ")
+        add_info(email,make_pass)
 
-        if make_user not in self.information:
-            self.information[make_user] = {
-                "password": make_pass,
-                "balance": []
-            }
-            print("Registration successful!")
-        else:
-            print("Username already exists!")
 
     def obtaining(self):
         while True:
